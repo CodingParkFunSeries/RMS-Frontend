@@ -1,25 +1,24 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+import  AdminHomePage from './Pages/AdminHomePage';
+import CreateSchool from './Pages/CreateSchool';
+import AddStudent from './Pages/AddStudent';
+import CreateClassroom from './Pages/CreateClassroom';
+import {BrowserRouter,Route} from 'react-router-dom';
+ 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    // <AdminHomePage/>
+    //<CreateSchool/>
+    //<AddStudent/>
+
+    <BrowserRouter>
+      <Route exact path='/' component={AdminHomePage}/>
+      <Route  path='/CreateSchool' component={CreateSchool}/>
+      <Route  path='/AddStudent' component={AddStudent}/>
+      <Route  path='/CreateClassroom' component={CreateClassroom}/>
+    </BrowserRouter>
   );
 }
 
