@@ -1,8 +1,12 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Install Yarn
+[Download Link](https://yarnpkg.com/lang/en/docs/install/#windows-stable)
 
-In the project directory, you can run:
+## Install dependencies
+```
+yarn install
+```
 
 ### `yarn start`
 
