@@ -3,10 +3,19 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Install Yarn
 [Download Link](https://yarnpkg.com/lang/en/docs/install/#windows-stable)
 
+## Difference between yarn and npm
+[Download Link](https://stackoverflow.com/questions/50278553/what-is-main-difference-between-yarn-and-npm/50278575)
+
 ## Install dependencies
 ```
 yarn install
 ```
+
+## Add node module
+```
+yarn add <module_name>
+```
+
 
 ### `yarn start`
 
