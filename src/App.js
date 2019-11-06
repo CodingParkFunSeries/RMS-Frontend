@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import  AdminHomePage from './Pages/AdminHomePage';
 import CreateSchool from './Pages/CreateSchool';

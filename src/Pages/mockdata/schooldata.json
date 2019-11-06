@@ -1,0 +1,14 @@
+{
+    "sid1":{
+        "schoolname" : "School 1",
+        "strength" : "100"
+    },
+    "sid2":{
+        "schoolname" : "School 2",
+        "strength" : "200"
+    },
+    "sid3":{
+        "schoolname" : "School 3",
+        "strength" : "300"
+    }
+}

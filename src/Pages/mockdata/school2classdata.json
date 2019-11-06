@@ -1,0 +1,13 @@
+{
+    "c1":{
+        "classname" : "Class 1",
+        "strength" : "80",
+        "classteacher" : "Teacher 3"
+    },
+
+    "c2":{
+        "classname" : "Class 2",
+        "strength" : "120",
+        "classteacher" : "Teacher 4"
+    }
+}
