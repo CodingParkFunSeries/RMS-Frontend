@@ -1,9 +1,9 @@
 import React,{Component} from 'react';
 import Table from 'react-bootstrap/Table';
 
-class SchoolTableComponent extends Component{
+class ClassTableComponent extends Component{
     render(){
-        const {data,headers} = this.props;
+        const {data,headers,SchoolId} = this.props;
         return(
             <Table striped bordered hover>
             <thead>
@@ -17,12 +17,13 @@ class SchoolTableComponent extends Component{
               {data.map((dataentry,index)=>{
                   return(
                     <tr key={index}>
-                        <td>{dataentry.Schoolid}</td>
+                        
                         <td 
                             style={{cursor:'pointer'}}
-                            title="Explore this School"
-                            onClick={()=>{window.open('/createclassroom/'+dataentry.Schoolid,'_self')}}>  {dataentry.SchoolName}
+                            title="Explore this Class"
+                            onClick={()=>{window.open('/ViewClass/'+SchoolId+"/"+dataentry.ClassName,'_self')}}>  {dataentry.ClassName}
                         </td>
+                        <td>{dataentry.ClassTeacher}</td>
                     </tr>
                   )
               })}
@@ -32,4 +33,4 @@ class SchoolTableComponent extends Component{
     }
 }
 
-export default SchoolTableComponent;
+export default ClassTableComponent;

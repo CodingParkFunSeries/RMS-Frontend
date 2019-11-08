@@ -7,7 +7,7 @@ class CreateSchool extends React.Component{
   render()
   {
     return (
-        <div className="App">
+        <div>
           
             
 

@@ -10,18 +10,19 @@ class  AdminHomePage extends Component {
         this.setState({schoolsPresent:mockschooldata})  
     }
     constructor(props){
-        super(props);   
+        super(props);
+        this.initialSchoolDetail = {
+            SchoolName:'',
+        }
         this.state={
             schoolsPresent:[] , 
-            newschool:{
-                SchoolName:''
-            }
+            newschool:this.initialSchoolDetail
         }
     }
     createschool (){
         this.setState({
             schoolsPresent:[...this.state.schoolsPresent,this.state.newschool],
-            newschool:{SchoolName:''}
+            newschool:this.initialSchoolDetail
         })
     }
     handleChange(event){
@@ -32,11 +33,12 @@ class  AdminHomePage extends Component {
     }
     render()
     {
+        
         return (
             <div className="App">
                 
                 <div style={{background:'white'}}>
-                    <SchoolTableComponent data={this.state.schoolsPresent} headers={["School ID","School Name"]}/>
+                    <SchoolTableComponent data={this.state.schoolsPresent} headers={["School ID","School Name"]} />
                 </div>
                 
                 <br />
