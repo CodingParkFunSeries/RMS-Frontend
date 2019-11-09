@@ -3,7 +3,7 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import StudentTableComponent from './Components/StudentTableComponent';
 import InputField from './Components/AddStudentInput'
-import {get_student} from './API';
+import {get_student} from './Components/API';
 
 
 

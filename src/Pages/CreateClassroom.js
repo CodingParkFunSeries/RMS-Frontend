@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import ClassTableComponent from './Components/ClassTableComponent';
-import {get_class,post_class} from './API'
+import {get_class,post_class} from './Components/API'
 
 class CreateSchool extends React.Component {
 
