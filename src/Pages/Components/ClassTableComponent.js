@@ -4,6 +4,7 @@ import Table from 'react-bootstrap/Table';
 class ClassTableComponent extends Component{
     render(){
         const {data,headers,SchoolId} = this.props;
+        console.log(data);
         return(
             <Table striped bordered hover>
             <thead>
@@ -21,9 +22,11 @@ class ClassTableComponent extends Component{
                         <td 
                             style={{cursor:'pointer'}}
                             title="Explore this Class"
-                            onClick={()=>{window.open('/ViewClass/'+SchoolId+"/"+dataentry.ClassName,'_self')}}>  {dataentry.ClassName}
+                            onClick={()=>{window.open('/ViewClass/'+SchoolId+"/"+dataentry.id,'_self')}}>  {dataentry.id}
                         </td>
-                        <td>{dataentry.ClassTeacher}</td>
+                        <td>{dataentry.schoolId}</td>
+                        <td>{dataentry.className}</td>
+                        <td>{''+dataentry.isActive}</td>
                     </tr>
                   )
               })}

@@ -3,36 +3,72 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
-import MockSchool1Classdata from './mockdata/school1classdata';
 import ClassTableComponent from './Components/ClassTableComponent';
+import axios from 'axios';
 
 class CreateSchool extends React.Component {
 
   componentDidMount()
   {
-    this.setState({ClassesPresent:MockSchool1Classdata})  
+    const schoolid = this.props.match.params.SchoolId;
+    axios.get('https://ajyarms.azurewebsites.net/schools/'+schoolid+'/batches/')
+      .then(res => {
+        const classes = res.data;
+        this.setState({ClassesPresent:classes})
+      })
+    console.log(this.state.ClassesPresent)
   }
 
   constructor(props)
   {
     super(props);
     this.initialClassDetail = {
-      ClassName:'',
-      ClassTeacher:''
+      schoolId:''+this.props.match.params.SchoolId,
+      className:'',
+      isActive:''
     }
     this.state =
     {
       ClassesPresent:[],
-      NewClass:this.initialClassDetail
+      NewClass:this.initialClassDetail,
+      deleteclassid:''
     }
   }
 
   createClass ()
   {
-    this.setState({
-        ClassesPresent:[...this.state.ClassesPresent,this.state.NewClass],
-        NewClass:this.initialClassDetail
-    })
+    
+
+    const classadded = {
+      "schooloId": this.state.NewClass.schoolId,
+      "className": this.state.NewClass.className,
+      "isActive": this.state.NewClass.isActive,
+
+  } 
+  console.log(classadded);
+  const config = {
+      headers:{
+          'Content-Type': 'application/json'
+      }
+      
+  }
+  const schoolid = this.props.match.params.SchoolId;
+  axios.post('https://ajyarms.azurewebsites.net/schools/'+schoolid+'/batches/',classadded,config)
+  .then(res => {
+      this.setState({
+          NewClass:this.initialClassDetail
+      })
+
+      axios.get('https://ajyarms.azurewebsites.net/schools/'+schoolid+'/batches/')
+      .then(res => {
+        const classes = res.data;
+        this.setState({ClassesPresent:classes})
+      })
+})
+.catch((error)=>{console.log(
+    'error',
+    error
+)})
   }
   handleChange(event)
   {
@@ -41,7 +77,13 @@ class CreateSchool extends React.Component {
           [event.target.name]:event.target.value
       }})
   }
-
+  handleDeleteChange(event){
+    this.setState({deleteclassid:event.target.value})
+  }
+  deleteClass()
+  {
+    console.log('Class deleted is '+this.state.deleteclassid)
+  }
   render()
   {
     let SchoolId= this.props.match.params.SchoolId;
@@ -50,34 +92,36 @@ class CreateSchool extends React.Component {
           
             
           <div style={{background:'white'}}>
-                    <ClassTableComponent data={this.state.ClassesPresent} headers={["Class Name","Teacher Name"]} SchoolId ={SchoolId}/>
+                    <ClassTableComponent data={this.state.ClassesPresent} headers={["Class Id","School Id","ClassName","isActive"]} SchoolId ={SchoolId}/>
           </div>
 
           <br />
 
-          <InputGroup className="mb-3" style = {{width:"50%"}}>
+          
+
+            <InputGroup className="mb-3" style = {{width:"50%"}}>
                 <InputGroup.Prepend>
-                <InputGroup.Text id="inputGroup-sizing-default" style={{width:120}}>Class Name</InputGroup.Text>
+                <InputGroup.Text id="inputGroup-sizing-default" style={{width:140}}>Class Name</InputGroup.Text>
                 </InputGroup.Prepend>
                 <FormControl
                 aria-label="Default"
                 aria-describedby="inputGroup-sizing-default"
                 onChange={this.handleChange.bind(this)}
-                value={this.state.NewClass.ClassName}
-                name='ClassName'
+                value={this.state.NewClass.className}
+                name='className'
                 />
             </InputGroup>
 
             <InputGroup className="mb-3" style = {{width:"50%"}}>
                 <InputGroup.Prepend>
-                <InputGroup.Text id="inputGroup-sizing-default" style={{width:120}}>Teacher Name</InputGroup.Text>
+                <InputGroup.Text id="inputGroup-sizing-default" style={{width:140}}>Active or IsActive</InputGroup.Text>
                 </InputGroup.Prepend>
                 <FormControl
                 aria-label="Default"
                 aria-describedby="inputGroup-sizing-default"
                 onChange={this.handleChange.bind(this)}
-                value={this.state.NewClass.ClassTeacher}
-                name='ClassTeacher'
+                value={this.state.NewClass.isActive}
+                name='isActive'
                 />
             </InputGroup>
 
@@ -86,8 +130,25 @@ class CreateSchool extends React.Component {
               <Button variant="outline-danger" onClick={this.createClass.bind(this)}>
                   Create Classroom
               </Button>
-    
-              
+
+            <br />
+
+              <InputGroup className="mb-3" style = {{width:"70%"}}>
+                <InputGroup.Prepend>
+                <InputGroup.Text id="inputGroup-sizing-default" style={{width:80}}>Class Id</InputGroup.Text>
+                </InputGroup.Prepend>
+                <FormControl 
+                placeholder = "Enter the class ID of the class you want to delete"
+                aria-label="Default"
+                aria-describedby="inputGroup-sizing-default"
+                onChange={this.handleDeleteChange.bind(this)}
+                value={this.state.deleteclassid}
+                />
+            </InputGroup>
+
+            <Button variant="outline-danger" onClick={this.deleteClass.bind(this)}>
+                  Delete Classroom
+              </Button>
             
             
           
