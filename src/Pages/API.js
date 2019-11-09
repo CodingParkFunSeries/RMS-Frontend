@@ -26,11 +26,17 @@ function post_class(schoolid,classAdded)
 {
   return axios.post('https://ajyarms.azurewebsites.net/schools/'+schoolid+'/batches/',classAdded,config)
 }
+
+function get_student(schoolId='',classId='',studentId='')
+{
+  return axios.get('https://ajyarms.azurewebsites.net/schools/'+schoolId+'/batches/'+classId+"/students/"+studentId);
+}
 export {
   get_school,
   post_school,
   get_class,
-  post_class
+  post_class,
+  get_student
 }
 
 

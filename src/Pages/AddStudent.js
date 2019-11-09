@@ -1,27 +1,49 @@
 import React from 'react';
 
 import Button from 'react-bootstrap/Button';
-import InputGroup from 'react-bootstrap/InputGroup';
-import FormControl from 'react-bootstrap/FormControl';
 import StudentTableComponent from './Components/StudentTableComponent';
-import MockClass1Studentdata from './mockdata/class1studentdata';
+import InputField from './Components/AddStudentInput'
+import {get_student} from './API';
+
+
+
 class AddStudent extends React.Component {
 
   componentDidMount()
   {
-    this.setState({StudentsPresent:MockClass1Studentdata})
-    console.log(this.props);  
+    const schoolId = this.props.SchoolId;
+    const classId = this.props.ClassId;
+    get_student(schoolId,classId)
+      .then(res => {
+        const classes = res.data;
+        this.setState({StudentsPresent:classes})
+        console.log("Classes present are: ",this.state.StudentsPresent) 
+      })
+    
   }
 
   constructor(props)
   {
     super(props);
+    const schoolId = this.props.SchoolId;
+    const classId = this.props.ClassId;
+    
     this.initialStudentDetail = {
-      StudentId:'',
-      StudentName : "",
-      StudentAddress : "",
-      StudentContactNo : "",
-      StudentDateOfBirth : ""
+      name: '',
+      birthDate: '',
+      address: '',
+      email: '',
+      nationality: '',
+      enrollmentDate: '',
+      zipCode: '',
+      city: '',
+      state: '',
+      country: '',
+      schoolId: schoolId,
+      batchId: classId,
+      mobileNumber: '',
+      gender: ''
+      
     }
     this.state =
     {
@@ -32,89 +54,55 @@ class AddStudent extends React.Component {
 
   addStudent ()
   {
+    console.log(this.state.NewStudent)
     this.setState({
         StudentsPresent:[...this.state.StudentsPresent,this.state.NewStudent],
         NewStudent:this.initialStudentDetail
     })
   }
-  handleChange(event)
+  handleChange(name,value)
   {
       this.setState({NewStudent:{
           ...this.state.NewStudent,
-          [event.target.name]:event.target.value
+          [name]:value
       }})
   }
 
   render()
   {
+    const SchoolId = this.props.SchoolId;
+    const ClassId = this.props.ClassId;
+    console.log("Addstudent "+SchoolId+" "+ClassId);
     return (
-        <div>
+      
+
+      <div className="row h-100 justify-content-center m-3 align-items-center" style={{fontSize:12}}>
           
-
+          <div className="col-sm-12"> 
           <div style={{background:'white'}}>
-                    <StudentTableComponent data={this.state.StudentsPresent} headers={["Student Id","Name","Address","Contact No","Date Of Birth"]}/>
+                    <StudentTableComponent data={this.state.StudentsPresent} headers={["Student Id","Name","Date Of Birth","Address","Email","Nationality","Enrollment Date","Zipcode","City","State","Country","SchoolId","BatchId","Mobile Number","Gender"]}/>
           </div>
+          </div>
+          <div className="col-sm-6">
 
-          <br />
-
-          <InputGroup className="mb-3" style = {{width:"50%"}}>
-                <InputGroup.Prepend>
-                <InputGroup.Text id="inputGroup-sizing-default" style={{width:110}}>Name</InputGroup.Text>
-                </InputGroup.Prepend>
-                <FormControl
-                aria-label="Default"
-                aria-describedby="inputGroup-sizing-default"
+          {Object.keys(this.initialStudentDetail)
+          .filter((key)=>{
+              if(key!=='schoolId'&&key!=='batchId'){
+                return true;
+              }
+              return false;
+          })
+          .map((key)=>{
+            return(
+              <InputField
                 onChange={this.handleChange.bind(this)}
-                value={this.state.NewStudent.StudentName}
-                name='StudentName'
-                />
-            </InputGroup>
-
-            
-
-            <InputGroup className="mb-3" style = {{width:"50%"}}>
-                <InputGroup.Prepend>
-                <InputGroup.Text id="inputGroup-sizing-default" style={{width:110}}>Address</InputGroup.Text>
-                </InputGroup.Prepend>
-                <FormControl
-                aria-label="Default"
-                aria-describedby="inputGroup-sizing-default"
-                onChange={this.handleChange.bind(this)}
-                value={this.state.NewStudent.StudentAddress}
-                name='StudentAddress'
-                />
-            </InputGroup>
-
-            
-
-            <InputGroup className="mb-3" style = {{width:"50%"}}>
-                <InputGroup.Prepend>
-                <InputGroup.Text id="inputGroup-sizing-default" style={{width:110}}>Contact No</InputGroup.Text>
-                </InputGroup.Prepend>
-                <FormControl
-                aria-label="Default"
-                aria-describedby="inputGroup-sizing-default"
-                onChange={this.handleChange.bind(this)}
-                value={this.state.NewStudent.StudentContactNo}
-                name='StudentContactNo'
-                />
-            </InputGroup>
-
-            
-
-            <InputGroup className="mb-3" style = {{width:"50%"}}>
-                <InputGroup.Prepend>
-                <InputGroup.Text id="inputGroup-sizing-default" style={{width:110}}>Date of Birth</InputGroup.Text>
-                </InputGroup.Prepend>
-                <FormControl
-                aria-label="Default"
-                aria-describedby="inputGroup-sizing-default"
-                onChange={this.handleChange.bind(this)}
-                value={this.state.NewStudent.StudentDateOfBirth}
-                name='StudentDateOfBirth'
-                />
-            </InputGroup>
-
+                name={key}
+                value={this.state.NewStudent[key]}
+                key={key}
+              />
+            )
+          })}
+          
             
               <Button variant="outline-danger" onClick={this.addStudent.bind(this)}>
                   Add Student
@@ -123,7 +111,7 @@ class AddStudent extends React.Component {
               
             
             
-          
+          </div>
         </div>
       );
   }

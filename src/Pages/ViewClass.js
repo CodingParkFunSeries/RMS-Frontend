@@ -5,9 +5,12 @@ class ViewClass extends React.Component{
 
     render()
     {
+        const SchoolId = this.props.match.params.SchoolId;
+        const ClassId = this.props.match.params.ClassId;
+        console.log(SchoolId+" "+ClassId);
         return(
             <div>
-                <AddStudent />
+                <AddStudent SchoolId ={SchoolId} ClassId = {ClassId}/>
                 <br />
                 <AddSubject />
 

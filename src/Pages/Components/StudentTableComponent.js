@@ -23,12 +23,22 @@ class StudentTableComponent extends Component{
                             <td 
                                 style={{cursor:'pointer'}}
                                 title="Explore this Student"
-                                onClick={()=>{window.open('/ViewStudent/'+dataentry.StudentId,'_self')}}>  {dataentry.StudentId}
+                                onClick={()=>{window.open('/ViewStudent/'+dataentry.id,'_self')}}>  {dataentry.id}
                             </td>
-                            <td>{dataentry.StudentName}</td>
-                            <td>{dataentry.StudentAddress}</td>
-                            <td>{dataentry.StudentContactNo}</td>
-                            <td>{dataentry.StudentDateOfBirth}</td>
+                            <td>{''+dataentry.name}</td>
+                            <td>{''+dataentry.birthdate}</td>
+                            <td>{''+dataentry.address}</td>
+                            <td>{''+dataentry.email}</td>
+                            <td>{''+dataentry.nationality}</td>
+                            <td>{''+dataentry.enrollmentDate}</td>
+                            <td>{''+dataentry.zipCode}</td>
+                            <td>{''+dataentry.city}</td>
+                            <td>{''+dataentry.state}</td>
+                            <td>{''+dataentry.country}</td>
+                            <td>{''+dataentry.schoolId}</td>
+                            <td>{''+dataentry.batchId}</td>
+                            <td>{''+dataentry.mobileNumber}</td>
+                            <td>{''+dataentry.gender}</td>
                         </tr>
                     )
                 })}

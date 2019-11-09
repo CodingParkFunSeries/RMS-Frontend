@@ -4,7 +4,6 @@ import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import ClassTableComponent from './Components/ClassTableComponent';
-import axios from 'axios';
 import {get_class,post_class} from './API'
 
 class CreateSchool extends React.Component {
@@ -88,7 +87,7 @@ class CreateSchool extends React.Component {
               <p style={{fontSize:20}}><em>Click on the Class Id to explore a class.</em></p>
               <br/>
               <div style={{background:'white'}}>
-                        <ClassTableComponent data={this.state.ClassesPresent} headers={["Class Id","School Id","ClassName","isActive"]} SchoolId ={SchoolId}/>
+                        <ClassTableComponent data={this.state.ClassesPresent} headers={["Class Id","ClassName","isActive"]} SchoolId ={SchoolId}/>
               </div>
             </div>
 

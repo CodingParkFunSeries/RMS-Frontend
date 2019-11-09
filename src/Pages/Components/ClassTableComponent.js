@@ -17,14 +17,14 @@ class ClassTableComponent extends Component{
             <tbody>
               {data.map((dataentry,index)=>{
                   return(
-                    <tr key={index}>
+                    <tr key={index}
+                      style={{cursor:'pointer'}}
+                      title="Explore this Class"
+                      onClick={()=>{window.open('/ViewClass/'+SchoolId+"/"+dataentry.id,'_self')}}
+                    >
                         
-                        <td 
-                            style={{cursor:'pointer'}}
-                            title="Explore this Class"
-                            onClick={()=>{window.open('/ViewClass/'+SchoolId+"/"+dataentry.id,'_self')}}>  {dataentry.id}
-                        </td>
-                        <td>{dataentry.schoolId}</td>
+                        <td >{dataentry.id}</td>
+                        {/* <td>{dataentry.schoolId}</td> */}
                         <td>{dataentry.className}</td>
                         <td>{''+dataentry.isActive}</td>
                     </tr>
