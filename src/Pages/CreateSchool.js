@@ -7,8 +7,8 @@ class CreateSchool extends React.Component{
   render()
   {
     return (
-        <div className="App">
-          <header className="App-header">
+        <div>
+          
             
 
             <InputGroup className="mb-3" style = {{width:"50%"}}>
@@ -28,7 +28,7 @@ class CreateSchool extends React.Component{
               
             
             
-          </header>
+          
         </div>
       );
   }
