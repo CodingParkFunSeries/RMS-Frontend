@@ -5,13 +5,14 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import ClassTableComponent from './Components/ClassTableComponent';
 import axios from 'axios';
+import {get_class,post_class} from './API'
 
 class CreateSchool extends React.Component {
 
   componentDidMount()
   {
     const schoolid = this.props.match.params.SchoolId;
-    axios.get('https://ajyarms.azurewebsites.net/schools/'+schoolid+'/batches/')
+    get_class(schoolid)
       .then(res => {
         const classes = res.data;
         this.setState({ClassesPresent:classes})
@@ -39,36 +40,27 @@ class CreateSchool extends React.Component {
   {
     
 
-    const classadded = {
+    const classAdded = {
       "schooloId": this.state.NewClass.schoolId,
       "className": this.state.NewClass.className,
       "isActive": this.state.NewClass.isActive,
 
   } 
-  console.log(classadded);
-  const config = {
-      headers:{
-          'Content-Type': 'application/json'
-      }
-      
-  }
+  
   const schoolid = this.props.match.params.SchoolId;
-  axios.post('https://ajyarms.azurewebsites.net/schools/'+schoolid+'/batches/',classadded,config)
+  post_class(schoolid,classAdded)
   .then(res => {
       this.setState({
           NewClass:this.initialClassDetail
       })
 
-      axios.get('https://ajyarms.azurewebsites.net/schools/'+schoolid+'/batches/')
+      get_class(schoolid)
       .then(res => {
         const classes = res.data;
         this.setState({ClassesPresent:classes})
       })
 })
-.catch((error)=>{console.log(
-    'error',
-    error
-)})
+
   }
   handleChange(event)
   {

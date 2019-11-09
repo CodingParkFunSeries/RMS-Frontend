@@ -18,9 +18,19 @@ const post_school = (school)=>{
   return axios.post('https://ajyarms.azurewebsites.net/schools/',school,config);
 }
 
+function get_class(schoolId = 1,classId = '')
+{
+    return axios.get('https://ajyarms.azurewebsites.net/schools/'+schoolId+'/batches/'+classId)
+}
+function post_class(schoolid,classAdded)
+{
+  return axios.post('https://ajyarms.azurewebsites.net/schools/'+schoolid+'/batches/',classAdded,config)
+}
 export {
   get_school,
-  post_school
+  post_school,
+  get_class,
+  post_class
 }
 
 
