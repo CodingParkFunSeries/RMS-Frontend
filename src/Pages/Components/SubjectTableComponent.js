@@ -17,8 +17,9 @@ class SubjectTableComponent extends Component{
               {data.map((dataentry,index)=>{
                   return(
                     <tr key={index}>
-                        <td>{dataentry.Subject}</td>
-                        <td>{dataentry.Teacher}</td>
+                        <td>{dataentry.id}</td>
+                        <td>{dataentry.name}</td>
+                        <td>{''+dataentry.description}</td>
                     </tr>
                   )
               })}

@@ -31,12 +31,31 @@ function get_student(schoolId='',classId='',studentId='')
 {
   return axios.get('https://ajyarms.azurewebsites.net/schools/'+schoolId+'/batches/'+classId+"/students/"+studentId);
 }
+
+function post_student(schoolId='',classId='',studentAdded)
+{
+  return axios.post('https://ajyarms.azurewebsites.net/schools/'+schoolId+'/batches/'+classId+"/students/",studentAdded,config);
+}
+function get_subject(schoolId = '',classId = '',subjectId='')
+{
+  
+    return axios.get('https://ajyarms.azurewebsites.net/schools/'+schoolId+'/semesters/1/batches/'+classId+'/subjects/'+subjectId);
+}
+
+function post_subject(schoolId = 1,classId = '',subjectAdded)
+{
+    return axios.post('https://ajyarms.azurewebsites.net/schools/'+schoolId+'/semesters/1/batches/'+classId+'/subjects/',subjectAdded,config);
+}
+
 export {
   get_school,
   post_school,
   get_class,
   post_class,
-  get_student
+  get_student,
+  post_student,
+  get_subject,
+  post_subject
 }
 
 

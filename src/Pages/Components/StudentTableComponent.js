@@ -18,12 +18,14 @@ class StudentTableComponent extends Component{
                 <tbody>
                 {data.map((dataentry,index)=>{
                     return(
-                        <tr key={index}>
+                        <tr key={index}
+                            style={{cursor:'pointer'}}
+                            title="Explore this Student"
+                            onClick={()=>{window.open('/ViewStudent/'+dataentry.id,'_self')}}
+                        >
                             
                             <td 
-                                style={{cursor:'pointer'}}
-                                title="Explore this Student"
-                                onClick={()=>{window.open('/ViewStudent/'+dataentry.id,'_self')}}>  {dataentry.id}
+                                >  {dataentry.id}
                             </td>
                             <td>{''+dataentry.name}</td>
                             <td>{''+dataentry.birthdate}</td>
