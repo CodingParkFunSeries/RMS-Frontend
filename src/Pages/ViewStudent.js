@@ -1,7 +1,8 @@
 import React from 'react';
-import {get_student,get_semester,get_exam} from './Components/API';
+import {get_student,get_semester,get_exam,get_marks} from './Components/API';
 
 import StudentTableComponent from './Components/StudentTableComponent';
+import MarksTableComponent from './Components/MarksTableComponent';
 class ViewStudent extends React.Component {
 
   componentDidMount()
@@ -9,8 +10,8 @@ class ViewStudent extends React.Component {
     const schoolId = this.props.match.params.SchoolId;
     const classId = this.props.match.params.ClassId;
     const studentId = this.props.match.params.StudentId;
-    console.log(schoolId+" "+classId);
-    console.log(this.props);
+    //console.log(schoolId+" "+classId);
+    //console.log(this.props);
     get_student(schoolId,classId,studentId)
       .then(res => {
         const students = res.data;
@@ -22,11 +23,7 @@ class ViewStudent extends React.Component {
       this.setState({SemestersPresent:semesters})
     })
 
-    get_exam(schoolId,'1',classId)
-    .then(res => {
-      const exams = res.data;
-      this.setState({ExamsPresent:exams})
-    })
+    
 
   }
 
@@ -39,6 +36,7 @@ class ViewStudent extends React.Component {
       StudentsPresent:[],
       SemestersPresent:[],
       ExamsPresent:[],
+      marks:[],
       semesterselected :'',
       examselected :'',
       
@@ -48,10 +46,11 @@ class ViewStudent extends React.Component {
 
   
 myfun(value){
-  const schoolId = this.props.match.params.SchoolId;
+    const schoolId = this.props.match.params.SchoolId;
     const classId = this.props.match.params.ClassId;
     this.setState({semesterselected:value})
     this.setState({examselected:''})
+    console.log("Class Id"+classId)
   get_exam(schoolId,value,classId)
     .then(res => {
       const exams = res.data;
@@ -60,11 +59,20 @@ myfun(value){
 }
 myfunexam(value)
 {
-  this.setState({examselected:value})
+  this.setState({examselected:value});
+  const schoolId = this.props.match.params.SchoolId;
+  console.log("School Id "+schoolId+' semester '+this.state.semesterselected+' exam: '+value +' student: '+this.props.match.params.StudentId)
+  get_marks(schoolId,this.state.semesterselected,value,this.props.match.params.StudentId)
+    .then(res => {
+      const mark = res.data;
+      this.setState({marks:mark})
+      console.log("Marks obtained: ",this.state.marks)
+    })
+    
 }
   render()
   {
-    console.log(this.state)
+    //console.log(this.state)
     return (
         <div className="row h-100 justify-content-center m-3 align-items-center" style={{fontSize:12}}>
           
@@ -78,8 +86,7 @@ myfunexam(value)
 
           <div className="col-sm-6"> 
             <p style={{fontSize:20}}> Select semester:</p>
-            <div >
-              
+            <div > 
               <select id="semester" name="semester" onChange={(event)=>this.myfun(event.target.value)}>
               <option defaultChecked="">Please Select</option>
               {this.state.SemestersPresent.map((header,index)=>{
@@ -100,9 +107,14 @@ myfunexam(value)
           </div>
           
           <div className="col-sm-12"> 
-          <p style={{fontSize:20}}> Marks for Semester {this.state.semesterselected} and Exam {this.state.examselected} are: </p>
+            <p style={{fontSize:20}}> Marks for Semester {this.state.semesterselected} and Exam {this.state.examselected} are: </p>
+          
+            <div style={{background:'white'}}>
+                      <MarksTableComponent data={this.state.marks} headers={["Subject Id","Marks Obtained"]}/>
+            </div>
           </div> 
           <br />
+
         </div>
       );
   }

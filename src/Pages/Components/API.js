@@ -57,6 +57,12 @@ function get_exam(schoolId='',semesterId='',batchId='',examId='')
   return axios.get('https://ajyarms.azurewebsites.net/schools/'+schoolId+'/semesters/'+semesterId+'/batches/'+batchId+'/exams/'+examId);
 }
 
+function get_marks(schoolId='',semesterId='',examId='',studentId='')
+{
+  console.log(schoolId+'/semesters/'+semesterId+'/exams/'+examId+'/students/'+studentId+'/marks');
+  return axios.get('https://ajyarms.azurewebsites.net/schools/'+schoolId+'/semesters/'+semesterId+'/exams/'+examId+'/students/'+studentId+'/marks');
+}
+
 export {
   get_school,
   post_school,
@@ -67,7 +73,8 @@ export {
   get_subject,
   post_subject,
   get_semester,
-  get_exam
+  get_exam,
+  get_marks
 }
 
 

@@ -6,7 +6,7 @@ class StudentTableComponent extends Component{
     render()
     {
         const {data,headers} = this.props;
-        console.log(data)
+        //console.log(data)
         return(
             <Table striped bordered hover>
                 <thead>
