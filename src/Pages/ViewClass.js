@@ -5,11 +5,19 @@ class ViewClass extends React.Component{
 
     render()
     {
+        const SchoolId = this.props.match.params.SchoolId;
+        const ClassId = this.props.match.params.ClassId;
+        //console.log(SchoolId+" "+ClassId);
         return(
-            <div>
-                <AddStudent />
+            <div className="justify-content-center align-items-center">
+                School : {SchoolId}
                 <br />
-                <AddSubject />
+                Class : {ClassId}
+                <AddSubject SchoolId ={SchoolId} ClassId = {ClassId}/>
+                <br />
+                <AddStudent SchoolId ={SchoolId} ClassId = {ClassId}/>
+                
+                
 
             </div>
         );

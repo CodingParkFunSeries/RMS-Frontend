@@ -3,20 +3,36 @@ import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import SubjectTableComponent from './Components/SubjectTableComponent';
-import MockClass1Subjectdata from './mockdata/class1subjectdata';
+import {get_subject,post_subject} from './Components/API';
 class AddSubject extends React.Component {
 
   componentDidMount()
   {
-    this.setState({SubjectsPresent:MockClass1Subjectdata})
+    
+    //console.log('Hi from add subject')
+    const schoolId = this.props.SchoolId;
+    const classId = this.props.ClassId;
+    get_subject(schoolId,classId)
+      .then(res => {
+        const subjects = res.data;
+        this.setState({SubjectsPresent:subjects})
+        //console.log("Subjects read",this.state.SubjectsPresent);
+      })
+      
   }
 
   constructor(props)
   {
     super(props);
+    const schoolId = this.props.SchoolId;
+    const classId = this.props.ClassId;
+    
     this.initialSubjectDetail = {
-      Subject:'',
-      Teacher : '',
+      name:'',
+      description : '',
+      schoolId : schoolId,
+      semesterId : '1',
+      batchId : classId,
     }
     this.state =
     {
@@ -27,9 +43,21 @@ class AddSubject extends React.Component {
 
   addStudent ()
   {
-    this.setState({
-        SubjectsPresent:[...this.state.SubjectsPresent,this.state.NewSubject],
+    
+
+    const schoolId = this.props.SchoolId;
+    const classId = this.props.ClassId;
+
+    post_subject(schoolId,classId,this.state.NewSubject).then(res => {
+      this.setState({
         NewSubject:this.initialSubjectDetail
+      })
+      get_subject(schoolId,classId)
+      .then(res => {
+        const subjects = res.data;
+        this.setState({SubjectsPresent:subjects})
+        // console.log("Subject present are: ",this.state.SubjectsPresent) 
+      })
     })
   }
   handleChange(event)
@@ -44,26 +72,30 @@ class AddSubject extends React.Component {
   {
     
     return (
-        <div>
+      <div className="row h-100 justify-content-center align-items-center" style={{fontSize:12}}>
           
-
-            
-          <div style={{background:'white'}}>
-                    <SubjectTableComponent data={this.state.SubjectsPresent} headers={["Subject","Teacher Name"]}/>
+          <div className="col-sm-7"> 
+            <p style={{fontSize:20}}>Subjects taught are :</p>
+            <div style={{background:'white'}}>
+                      <SubjectTableComponent data={this.state.SubjectsPresent} headers={["Subject Id","Subjetc Name","Description"]}/>
+            </div>
           </div>
 
           <br />
 
+          <div className="col-sm-5 ">
+          <p style={{fontSize:20}}> Add a subject in class </p>
           <InputGroup className="mb-3" style = {{width:"50%"}}>
                 <InputGroup.Prepend>
                 <InputGroup.Text id="inputGroup-sizing-default" style={{width:110}}>Subject</InputGroup.Text>
                 </InputGroup.Prepend>
                 <FormControl
+                placeholder = "Subject Name"
                 aria-label="Default"
                 aria-describedby="inputGroup-sizing-default"
                 onChange={this.handleChange.bind(this)}
-                value={this.state.NewSubject.Subject}
-                name='Subject'
+                value={this.state.NewSubject.name}
+                name='name'
                 />
             </InputGroup>
 
@@ -71,14 +103,15 @@ class AddSubject extends React.Component {
 
             <InputGroup className="mb-3" style = {{width:"50%"}}>
                 <InputGroup.Prepend>
-                <InputGroup.Text id="inputGroup-sizing-default" style={{width:110}}>Teacher</InputGroup.Text>
+                <InputGroup.Text id="inputGroup-sizing-default" style={{width:110}}>Description</InputGroup.Text>
                 </InputGroup.Prepend>
                 <FormControl
+                placeholder = "Description"
                 aria-label="Default"
                 aria-describedby="inputGroup-sizing-default"
                 onChange={this.handleChange.bind(this)}
-                value={this.state.NewSubject.Teacher}
-                name='Teacher'
+                value={this.state.NewSubject.description}
+                name='description'
                 />
             </InputGroup>
 
@@ -89,7 +122,7 @@ class AddSubject extends React.Component {
                   Add Subject
               </Button>
     
-              
+              </div>  
             
             
           

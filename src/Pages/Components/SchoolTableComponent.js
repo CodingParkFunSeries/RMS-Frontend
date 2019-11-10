@@ -17,12 +17,13 @@ class SchoolTableComponent extends Component{
               {data.map((dataentry,index)=>{
                   return(
                     <tr key={index}>
-                        <td>{dataentry.Schoolid}</td>
+                        <td>{dataentry.id}</td>
                         <td 
                             style={{cursor:'pointer'}}
                             title="Explore this School"
-                            onClick={()=>{window.open('/createclassroom/'+dataentry.Schoolid,'_self')}}>  {dataentry.SchoolName}
+                            onClick={()=>{window.open('/createclassroom/'+dataentry.id,'_self')}}>  {dataentry.name}
                         </td>
+                        <td>{dataentry.address}</td>
                     </tr>
                   )
               })}
