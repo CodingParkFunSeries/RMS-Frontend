@@ -15,9 +15,9 @@ class AddStudent extends React.Component {
     const classId = this.props.ClassId;
     get_student(schoolId,classId)
       .then(res => {
-        const classes = res.data;
-        this.setState({StudentsPresent:classes})
-        // console.log("Classes present are: ",this.state.StudentsPresent) 
+        const students = res.data;
+        this.setState({StudentsPresent:students})
+        
       })
     
   }

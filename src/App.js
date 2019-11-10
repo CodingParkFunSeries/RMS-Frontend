@@ -24,7 +24,7 @@ function App() {
       <Route  path='/CreateClassroom/:SchoolId' component={CreateClassroom}/>
       <Route  path='/AddSubject' component={AddSubject}/>
       <Route  path='/ViewClass/:SchoolId/:ClassId' component={ViewClass}/>
-      <Route  path='/ViewStudent' component={ViewStudent}/>
+      <Route  path='/ViewStudent/:SchoolId/:ClassId/:StudentId' component={ViewStudent}/>
       </div>
       
     </BrowserRouter>
