@@ -42,9 +42,25 @@ function get_subject(schoolId = '',classId = '',subjectId='')
     return axios.get('https://ajyarms.azurewebsites.net/schools/'+schoolId+'/semesters/1/batches/'+classId+'/subjects/'+subjectId);
 }
 
-function post_subject(schoolId = 1,classId = '',subjectAdded)
+function post_subject(schoolId = '',classId = '',subjectAdded)
 {
     return axios.post('https://ajyarms.azurewebsites.net/schools/'+schoolId+'/semesters/1/batches/'+classId+'/subjects/',subjectAdded,config);
+}
+
+function get_semester(schoolId='',semesterId='')
+{
+  return axios.get('https://ajyarms.azurewebsites.net/schools/'+schoolId+'/semesters/'+semesterId);
+}
+
+function get_exam(schoolId='',semesterId='',batchId='',examId='')
+{
+  return axios.get('https://ajyarms.azurewebsites.net/schools/'+schoolId+'/semesters/'+semesterId+'/batches/'+batchId+'/exams/'+examId);
+}
+
+function get_marks(schoolId='',semesterId='',examId='',studentId='')
+{
+  console.log(schoolId+'/semesters/'+semesterId+'/exams/'+examId+'/students/'+studentId+'/marks');
+  return axios.get('https://ajyarms.azurewebsites.net/schools/'+schoolId+'/semesters/'+semesterId+'/exams/'+examId+'/students/'+studentId+'/marks');
 }
 
 export {
@@ -55,7 +71,10 @@ export {
   get_student,
   post_student,
   get_subject,
-  post_subject
+  post_subject,
+  get_semester,
+  get_exam,
+  get_marks
 }
 
 

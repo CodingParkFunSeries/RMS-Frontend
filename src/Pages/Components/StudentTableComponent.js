@@ -6,6 +6,7 @@ class StudentTableComponent extends Component{
     render()
     {
         const {data,headers} = this.props;
+        //console.log(data)
         return(
             <Table striped bordered hover>
                 <thead>
@@ -21,7 +22,7 @@ class StudentTableComponent extends Component{
                         <tr key={index}
                             style={{cursor:'pointer'}}
                             title="Explore this Student"
-                            onClick={()=>{window.open('/ViewStudent/'+dataentry.id,'_self')}}
+                            onClick={()=>{window.open('/ViewStudent/'+dataentry.schoolId+'/'+dataentry.batchId+'/'+dataentry.id,'_self')}}
                         >
                             
                             <td 
