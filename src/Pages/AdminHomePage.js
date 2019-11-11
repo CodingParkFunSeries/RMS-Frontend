@@ -61,16 +61,23 @@ class  AdminHomePage extends Component {
         return (
             <div className="App">
 
-                <div class="row h-100 justify-content-center m-3 align-items-center">
+                
 
-                    <div class="col-sm-8">
-                        Click on the School name of the school which you want to explore.
+                <div className="row h-100 justify-content-center align-items-center">
+
+                    <div className="col-sm-8" style={{color:"black"}}>
+                    <p style={{fontsize:20}}>
+                            All schools present in the system are:
+                        </p>
+                        <p >
+                            <i>Click on the School name of the school which you want to explore.</i>
+                        </p>
                         <div style={{background:'white'}}>
                             <SchoolTableComponent data={this.state.schoolsPresent} headers={["School ID","School Name", "School Address"]} />
                         </div>
                     </div>
                 
-                    <div class="col-sm-4">
+                    <div className="col-sm-4" style={{color:"black"}}>
                         Add a new school.
                         <InputGroup className="mb-3" >
                             <InputGroup.Prepend>

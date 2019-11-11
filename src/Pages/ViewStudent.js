@@ -1,6 +1,5 @@
 import React from 'react';
 import {get_student,get_semester,get_exam,get_marks} from './Components/API';
-
 import StudentTableComponent from './Components/StudentTableComponent';
 import MarksTableComponent from './Components/MarksTableComponent';
 class ViewStudent extends React.Component {
