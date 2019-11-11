@@ -60,10 +60,6 @@ class  ViewSchools extends Component {
                         <div style={{background:'white'}}>
                             <SchoolTableComponent data={this.state.schoolsPresent} headers={["School ID","School Name", "School Address"]} />
                         </div>
-
-                        
-                       
-
                         <Button variant="outline-warning" onClick={this.createschool.bind(this)}>
                             Add more schools
                         </Button>
