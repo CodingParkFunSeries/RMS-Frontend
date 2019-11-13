@@ -9,19 +9,19 @@ class SchoolTableComponent extends Component{
             <thead>
               <tr>
                 {headers.map((header,index)=>{
-                    return(<td key={index}>{header}</td>)
+                    return(<td key={index}><strong>{header}</strong></td>)
                 })}
               </tr>
             </thead>
             <tbody>
               {data.map((dataentry,index)=>{
                   return(
-                    <tr key={index}>
+                    <tr key={index} style={{cursor:'pointer'}}
+                    title="Explore this School"
+                    onClick={()=>{window.open('/createclassroom/'+dataentry.id,'_self')}}>
                         <td>{dataentry.id}</td>
                         <td 
-                            style={{cursor:'pointer'}}
-                            title="Explore this School"
-                            onClick={()=>{window.open('/createclassroom/'+dataentry.id,'_self')}}>  {dataentry.name}
+                            >  {dataentry.name}
                         </td>
                         <td>{dataentry.address}</td>
                     </tr>
