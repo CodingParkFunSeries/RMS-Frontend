@@ -9,7 +9,9 @@ import ViewAllClasses from './Pages/ViewAllClasses';
 
 import AddSubject from './Pages/AddSubject';
 import ViewClass from './Pages/ViewClass';
+import ViewSingleClass from './Pages/ViewSingleClass';
 import ViewStudent from './Pages/ViewStudent';
+import ViewAllStudent from './Pages/ViewAllStudent';
 
 import {BrowserRouter,Route} from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
@@ -27,7 +29,7 @@ function App() {
 
     <BrowserRouter>
     
-    <Navbar bg="dark" variant="dark" expand="lg">
+    <Navbar sticky="top" bg="dark" variant="dark" expand="lg">
       <Navbar.Brand href="/">Report Management System</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
@@ -39,6 +41,7 @@ function App() {
         <NavDropdown title="Classrooms" id="basic-nav-dropdown">
           <NavDropdown.Item href="/ViewAllClasses/1">View Classrooms</NavDropdown.Item>
           <NavDropdown.Item href="/CreateSingleClassroomNavbar/1">Create Classroom</NavDropdown.Item>
+          <NavDropdown.Item href="/ViewSingleClass">View Single Classroom</NavDropdown.Item>
         </NavDropdown>
           
           <Nav.Link href="#link">Students</Nav.Link>
@@ -49,19 +52,23 @@ function App() {
     </Navbar>
       <div className="App">
       <Route exact path='/' component={ViewSchools}/>
+      
       <Route path='/ViewSchools' component={ViewSchools}/>
       <Route  path='/CreateSchool' component={CreateSchool}/>
-      <Route  path='/AddStudent' component={AddStudent}/>
+      
 
       <Route  path='/CreateClassroom/:SchoolId' component={CreateClassroom}/>
       <Route  path='/CreateSingleClassroom/:SchoolId' component={CreateSingleClassroom}/>
       <Route  path='/CreateSingleClassroomNavbar/:SchoolId' component={CreateSingleClassroomNavbar}/>
       <Route  path='/ViewAllClasses/:SchoolId' component={ViewAllClasses}/>
 
-      <Route  path='/AddSubject' component={AddSubject}/>
+      <Route  path='/AddSubject/:SchoolId/:ClassId' component={AddSubject}/>
+      <Route  path='/AddStudent/:SchoolId/:ClassId' component={AddStudent}/>
       <Route  path='/ViewClass/:SchoolId/:ClassId' component={ViewClass}/>
+      <Route  path='/ViewSingleClass/' component={ViewSingleClass}/>
       
       <Route  path='/ViewStudent/:SchoolId/:ClassId/:StudentId' component={ViewStudent}/>
+      <Route  path='/ViewAllStudent/:SchoolId/:ClassId/' component={ViewAllStudent}/>
       </div>
       
     </BrowserRouter>
