@@ -20,6 +20,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import ViewSchools from './Pages/ViewSchools';
+import ViewStudentReport from './Pages/ViewStudentReport';
 
 
  
@@ -51,7 +52,7 @@ function App() {
           <NavDropdown.Item href="/ViewStudentsNavbar/">Students in a class</NavDropdown.Item>
           <NavDropdown.Item href="/CreateSingleStudent/">Add students</NavDropdown.Item>
         </NavDropdown>
-          <Nav.Link href="#link">View Student Report</Nav.Link>
+          <Nav.Link href="/ViewStudentReport">View Student Report</Nav.Link>
         </Nav>
         
       </Navbar.Collapse>
@@ -77,6 +78,7 @@ function App() {
       
       <Route  path='/ViewStudent/:SchoolId/:ClassId/:StudentId' component={ViewStudent}/>
       <Route  path='/ViewAllStudent/:SchoolId/:ClassId/' component={ViewAllStudent}/>
+      <Route  path='/ViewStudentReport/' component={ViewStudentReport}/>
       </div>
       
     </BrowserRouter>

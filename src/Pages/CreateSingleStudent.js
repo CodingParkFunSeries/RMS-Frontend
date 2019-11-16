@@ -1,5 +1,5 @@
 import React from 'react';
-import {get_class,get_school, get_subject, get_student} from './Components/API';
+import {get_class,get_school} from './Components/API';
 import InputField from './Components/AddStudentInput'
 import {post_student} from './Components/API';
 import Button from 'react-bootstrap/Button';
