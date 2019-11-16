@@ -1,11 +1,11 @@
 import React from 'react';
-import {get_class,get_school, get_subject, get_student} from './Components/API';
 
-import SubjectTableComponent from './Components/SubjectTableComponent';
+import {get_class,get_school, get_student} from './Components/API';
+
 import StudentTableComponent from './Components/StudentTableComponent';
 import Button from 'react-bootstrap/Button';
 
-class ViewSingleClass extends React.Component{
+class ViewStudentsNavbar extends React.Component{
     componentDidMount()
     {
       get_school()
@@ -24,14 +24,11 @@ class ViewSingleClass extends React.Component{
       
       this.state =
       {
-       
         schoolsPresent:[],
         classesPresent:[],
-        subjectsTaught:[],
         studentsPresent:[],
         schoolselected :'',
         classselected :'',
-        
       }
       //this.myfun = this.myfun.bind(this);
     }
@@ -52,11 +49,7 @@ class ViewSingleClass extends React.Component{
     {
         console.log(value);
         this.setState({classselected:value})
-        get_subject(this.state.schoolselected,value).then(res=>{ 
-            const subjects = res.data;
-            this.setState({subjectsTaught:subjects})
-            console.log(this.state.subjectsTaught);
-        })
+        
 
         get_student(this.state.schoolselected,value).then(res=>{ 
             const students = res.data;
@@ -65,16 +58,7 @@ class ViewSingleClass extends React.Component{
         })
         
     }
-    addSubjects()
-  {
-    const schoolId = this.state.schoolselected;
-    const classId = this.state.classselected;
-    // console.log(schoolId+" "+classId);
-    // console.log(this.props);
-    // console.log("/AddSubject/"+schoolId+"/"+classId);
-    this.props.history.push("/AddSubject/"+schoolId+"/"+classId);
-
-  }
+  
   addStudents()
   {
     const schoolId = this.state.schoolselected;
@@ -107,18 +91,7 @@ class ViewSingleClass extends React.Component{
                 </select>
                 
 
-                <div className="row h-100 justify-content-center align-items-center" style={{fontSize:12}}>
-                    <div> 
-                        <p style={{fontSize:20}}>Subjects taught are :</p>
-                        <div style={{background:'white'}}>
-                                <SubjectTableComponent data={this.state.subjectsTaught} headers={["Subject Id","Subject Name","Description"]}/>
-                        </div>
-
-                        <Button variant="outline-danger" onClick={this.addSubjects.bind(this)}>
-                                Add more subjects
-                            </Button>
-                    </div>
-                </div>
+                
 
                 <div className="row h-100 justify-content-center m-3 align-items-center" style={{fontSize:12}}>
   
@@ -154,4 +127,4 @@ class ViewSingleClass extends React.Component{
     }
 }
 
-export default ViewSingleClass;
+export default ViewStudentsNavbar;
