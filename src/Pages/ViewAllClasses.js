@@ -78,16 +78,16 @@ class ViewAllClasses extends React.Component {
           <div className="row h-100 justify-content-center m-3 align-items-center">
             <div className="col-sm-12"> 
               <p style={{fontSize:20}}>
-                Classes present in School 
+                Classes present in School &nbsp; 
 
                 <select onChange={(event)=>this.myfun(event.target.value)}>
                 
                 {this.state.SchoolsPresent.map((header,index)=>{
-                return(<option key={index}>{header.id}</option>);
+                return(<option key={index} value={header.id}>{header.name}</option>);
                       })}
                 </select>
                 
-                are: 
+                &nbsp; are: 
               </p>
               <em>Click on a classto explore it.</em>
               <br/>

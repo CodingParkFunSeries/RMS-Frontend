@@ -74,12 +74,12 @@ class CreateSingleClassroomNavbar extends React.Component {
           <div className="col-sm-12">
             
             <p style={{fontSize:20}}>
-            Create a Classroom in School 
+            Create a Classroom in School &nbsp;
 
                 <select onChange={(event)=>this.myfun(event.target.value)}>
                 
                 {this.state.SchoolsPresent.map((header,index)=>{
-                return(<option key={index}>{header.id}</option>);
+                return(<option key={index} value={header.id}>{header.name}</option>);
                       })}
                 </select>
                 

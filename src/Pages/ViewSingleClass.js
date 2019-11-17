@@ -89,26 +89,28 @@ class ViewSingleClass extends React.Component{
         return(
             <div className="justify-content-center align-items-center" style={{"color":"black", "fontSize":20}}>
                 
-                Class 
+                Class &nbsp;  
 
                 <select onChange={(event)=>this.myfunclass(event.target.value)}>
                 <option defaultChecked="">Please Select</option>
                     {this.state.classesPresent.map((header,index)=>{
-                    return(<option key={index}>{header.id}</option>);
+                    return(<option key={index} value={header.id}>{header.className}</option>);
                         })}
                 </select> 
                 
-                of School 
+                &nbsp; of School &nbsp; 
                 <select onChange={(event)=>this.myfun(event.target.value)}>
                 <option defaultChecked="">Please Select</option>
                     {this.state.schoolsPresent.map((header,index)=>{
-                    return(<option key={index}>{header.id}</option>);
+                    return(<option key={index}value={header.id}>{header.name}</option>);
                         })}
                 </select>
                 
 
                 <div className="row h-100 justify-content-center align-items-center" style={{fontSize:12}}>
                     <div> 
+                        <br />
+                        <br />
                         <p style={{fontSize:20}}>Subjects taught are :</p>
                         <div style={{background:'white'}}>
                                 <SubjectTableComponent data={this.state.subjectsTaught} headers={["Subject Id","Subject Name","Description"]}/>
