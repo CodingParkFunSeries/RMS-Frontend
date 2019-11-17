@@ -73,20 +73,20 @@ class ViewStudentsNavbar extends React.Component{
         return(
             <div className="justify-content-center align-items-center" style={{"color":"black", "fontSize":20}}>
                 
-                Class 
+                Class &nbsp;  
 
                 <select onChange={(event)=>this.myfunclass(event.target.value)}>
                 <option defaultChecked="">Please Select</option>
                     {this.state.classesPresent.map((header,index)=>{
-                    return(<option key={index}>{header.id}</option>);
+                    return(<option key={index}value={header.id}>{header.className}</option>);
                         })}
                 </select> 
                 
-                of School 
+                &nbsp; of School &nbsp;  
                 <select onChange={(event)=>this.myfun(event.target.value)}>
                 <option defaultChecked="">Please Select</option>
                     {this.state.schoolsPresent.map((header,index)=>{
-                    return(<option key={index}>{header.id}</option>);
+                    return(<option key={index}value={header.id}>{header.name}</option>);
                         })}
                 </select>
                 
@@ -113,11 +113,7 @@ class ViewStudentsNavbar extends React.Component{
                 </div>
 
 
-                {/* <ViewSubject SchoolId ={SchoolId} ClassId = {ClassId}/>
                 
-                <br />
-                <ViewAllStudent SchoolId ={SchoolId} ClassId = {ClassId}/> */}
-                {/* <AddStudent SchoolId ={SchoolId} ClassId = {ClassId}/> */}
                 
                 
 

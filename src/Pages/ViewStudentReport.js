@@ -1,9 +1,9 @@
 import React from 'react';
 import {get_class,get_school,get_student,get_semester,get_exam,get_marks} from './Components/API';
 
-import SubjectTableComponent from './Components/SubjectTableComponent';
+
 import StudentTableComponent from './Components/StudentTableComponent';
-import Button from 'react-bootstrap/Button';
+
 import MarksTableComponent from './Components/MarksTableComponent';
 
 class ViewStudentReport extends React.Component{
@@ -37,7 +37,9 @@ class ViewStudentReport extends React.Component{
         ExamsPresent:[],
         marks:[],
         semesterselected :'',
-        examselected :''
+        examselected :'',
+        semesterselectedname :'',
+        examselectedname :''
         
       }
         this.myfun = this.myfun.bind(this);
@@ -46,7 +48,7 @@ class ViewStudentReport extends React.Component{
     
     myfun(value)
     {
-        console.log(value);
+        console.log("School "+value);
         get_class(value).then(res=>{ 
             const classes = res.data;
             this.setState({classesPresent:classes})
@@ -88,9 +90,15 @@ class ViewStudentReport extends React.Component{
     myfunsemester(value){
         const schoolId = this.state.schoolselected;
         const classId = this.state.classselected;
+        get_semester(schoolId,value)
+        .then(res => {
+        const semester = res.data;
+        this.setState({semesterselectedname:semester.name})
         this.setState({semesterselected:value})
         this.setState({examselected:''})
-        console.log("Class Id"+classId)
+        this.setState({examselectedname:''})
+        })
+        
       get_exam(schoolId,value,classId)
         .then(res => {
           const exams = res.data;
@@ -102,12 +110,18 @@ class ViewStudentReport extends React.Component{
       this.setState({examselected:value});
       const schoolId = this.state.schoolselected;
       console.log("School Id "+schoolId+' semester '+this.state.semesterselected+' exam: '+value +' student: '+this.state.studentselected)
-      get_marks(schoolId,this.state.semesterselected,value,this.state.studentselected)
+      get_exam(schoolId,this.state.semesterselected,this.state.classselected,value)
+        .then(res => {
+        const exams = res.data;
+        this.setState({examselectedname:exams.name})
+        get_marks(schoolId,this.state.semesterselected,value,this.state.studentselected)
         .then(res => {
           const mark = res.data;
           this.setState({marks:mark})
           console.log("Marks obtained: ",this.state.marks)
         })
+        })
+      
         
     }
     render()
@@ -120,9 +134,9 @@ class ViewStudentReport extends React.Component{
                 
                 <p style={{fontSize:20}}>School &nbsp;
                 <select onChange={(event)=>this.myfun(event.target.value)}>
-                <option defaultChecked="">Select School</option>
+                <option defaultChecked="">Please Select</option>
                     {this.state.schoolsPresent.map((header,index)=>{
-                    return(<option key={index}>{header.id}</option>);
+                    return(<option key={index} value={header.id}>{header.name}</option>);
                         })}
                 </select></p>
 
@@ -131,7 +145,7 @@ class ViewStudentReport extends React.Component{
                 <select onChange={(event)=>this.myfunclass(event.target.value)}>
                 <option defaultChecked="">Select Class</option>
                     {this.state.classesPresent.map((header,index)=>{
-                    return(<option key={index}>{header.id}</option>);
+                    return(<option key={index} value={header.id}>{header.className}</option>);
                         })}
                 </select> </p>
 
@@ -140,7 +154,7 @@ class ViewStudentReport extends React.Component{
                 <select onChange={(event)=>this.myfunstudent(event.target.value)}>
                 <option defaultChecked="">Select Student</option>
                     {this.state.studentsPresent.map((header,index)=>{
-                    return(<option key={index}>{header.id}</option>);
+                    return(<option key={index} value={header.id}>{header.name}</option>);
                         })}
                 </select> </p>
                 
@@ -157,10 +171,11 @@ class ViewStudentReport extends React.Component{
                 <div className="col-sm-6"> 
                     <p style={{fontSize:20}}> Select semester:</p>
                     <div > 
-                    <select id="semester" name="semester" onChange={(event)=>this.myfunsemester(event.target.value)}>
+                    <select id="semester" name="semester" onChange={(event)=>this.myfunsemester(event.target.value,event.target.name)}>
+                    
                     <option defaultChecked="">Please Select</option>
                     {this.state.SemestersPresent.map((header,index)=>{
-                    return(<option key={index}>{header.id}</option>);
+                    return(<option key={index} value={header.id} name1={header.name}>{header.name}</option>);
                             })}
                     </select>
                     </div>
@@ -171,13 +186,13 @@ class ViewStudentReport extends React.Component{
                 <select  id="exam" name="exam" onChange={(event)=>this.myfunexam(event.target.value)}>
                         <option defaultChecked="">Please Select</option>
                         {this.state.ExamsPresent.map((header,index)=>{
-                        return(<option key={index}>{`${header.id} `}</option>);
+                        return(<option key={index} value={header.id}>{`${header.name} `}</option>);
                             })}
                     </select>
                 </div>
                         
                 <div className="col-sm-12"> 
-                    <p style={{fontSize:20}}> Marks for Semester {this.state.semesterselected} and Exam {this.state.examselected} are: </p>
+    <p style={{fontSize:20}}> Marks obtained in exam <strong>{this.state.examselectedname}</strong> &nbsp; for semester <strong>{this.state.semesterselectedname}</strong> &nbsp;are: </p>
                 
                     <div style={{background:'white'}}>
                             <MarksTableComponent data={this.state.marks} headers={["Subject Id","Marks Obtained"]}/>

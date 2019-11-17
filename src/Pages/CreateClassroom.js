@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import ClassTableComponent from './Components/ClassTableComponent';
-import {get_class,} from './Components/API'
+import {get_class,get_school} from './Components/API'
 
 class CreateSchool extends React.Component {
 
@@ -12,6 +12,12 @@ class CreateSchool extends React.Component {
       .then(res => {
         const classes = res.data;
         this.setState({ClassesPresent:classes})
+        get_school(schoolid)
+        .then(res => {
+          const school = res.data;
+          this.setState({schoolname:school.name})
+          console.log("School name"+this.state.schoolname)
+        })
       })
     console.log(this.state.ClassesPresent)
   }
@@ -28,7 +34,8 @@ class CreateSchool extends React.Component {
     {
       ClassesPresent:[],
       NewClass:this.initialClassDetail,
-      deleteclassid:''
+      deleteclassid:'',
+      schoolname:''
     }
   }
 
@@ -59,7 +66,7 @@ class CreateSchool extends React.Component {
           
           <div className="row h-100 justify-content-center m-3 align-items-center">
             <div className="col-sm-12"> 
-            <p style={{fontSize:20}}>Classes present in <strong>School {SchoolId}</strong> are: </p>
+            <p style={{fontSize:20}}>Classes present in <strong>School {this.state.schoolname}</strong> are: </p>
               <em>Click on a class to explore it.</em>
               <br/>
               <br/>

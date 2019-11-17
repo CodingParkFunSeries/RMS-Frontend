@@ -20,8 +20,9 @@ class ViewStudent extends React.Component {
     .then(res => {
       const semesters = res.data;
       this.setState({SemestersPresent:semesters})
+      console.log(schoolId+" "+classId+" "+this.state.SemestersPresent);
     })
-
+    
     
 
   }
@@ -38,6 +39,8 @@ class ViewStudent extends React.Component {
       marks:[],
       semesterselected :'',
       examselected :'',
+      semestername :'',
+      examname :''
       
     }
     this.myfun = this.myfun.bind(this);
@@ -47,8 +50,15 @@ class ViewStudent extends React.Component {
 myfun(value){
     const schoolId = this.props.match.params.SchoolId;
     const classId = this.props.match.params.ClassId;
-    this.setState({semesterselected:value})
-    this.setState({examselected:''})
+
+    get_semester(schoolId,value)
+    .then(res => {
+      const semester = res.data;
+      this.setState({semestername:semester.name})
+      this.setState({semesterselected:value})
+      this.setState({examselected:''})
+    })
+    
     console.log("Class Id"+classId)
   get_exam(schoolId,value,classId)
     .then(res => {
@@ -61,6 +71,11 @@ myfunexam(value)
   this.setState({examselected:value});
   const schoolId = this.props.match.params.SchoolId;
   console.log("School Id "+schoolId+' semester '+this.state.semesterselected+' exam: '+value +' student: '+this.props.match.params.StudentId)
+  get_exam(schoolId,this.state.semesterselected,this.props.match.params.ClassId,value)
+    .then(res => {
+      const exams = res.data;
+      this.setState({examname:exams.name})
+    })
   get_marks(schoolId,this.state.semesterselected,value,this.props.match.params.StudentId)
     .then(res => {
       const mark = res.data;
@@ -89,7 +104,7 @@ myfunexam(value)
               <select id="semester" name="semester" onChange={(event)=>this.myfun(event.target.value)}>
               <option defaultChecked="">Please Select</option>
               {this.state.SemestersPresent.map((header,index)=>{
-              return(<option key={index}>{header.id}</option>);
+              return(<option key={index} value={header.id}>{header.name}</option>);
                     })}
               </select>
             </div>
@@ -100,13 +115,13 @@ myfunexam(value)
           <select  id="exam" name="exam" onChange={(event)=>this.myfunexam(event.target.value)}>
                 <option defaultChecked="">Please Select</option>
                 {this.state.ExamsPresent.map((header,index)=>{
-                  return(<option key={index}>{`${header.id} `}</option>);
+                  return(<option key={index} value={header.id}>{header.name}</option>);
                     })}
               </select>
           </div>
           
           <div className="col-sm-12"> 
-            <p style={{fontSize:20}}> Marks for Semester {this.state.semesterselected} and Exam {this.state.examselected} are: </p>
+            <p style={{fontSize:20}}> Marks for Semester <strong>{this.state.semestername}</strong> and Exam <strong>{this.state.examname}</strong> are: </p>
           
             <div style={{background:'white'}}>
                       <MarksTableComponent data={this.state.marks} headers={["Subject Id","Marks Obtained"]}/>
