@@ -3,8 +3,7 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
-import ClassTableComponent from './Components/ClassTableComponent';
-import {get_class,post_class,get_school} from './Components/API'
+import {post_class,get_school} from './Components/API'
 
 class CreateSingleClassroomNavbar extends React.Component {
     componentDidMount()

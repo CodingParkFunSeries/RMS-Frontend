@@ -1,26 +1,14 @@
 import React from 'react';
 
 import Button from 'react-bootstrap/Button';
-import StudentTableComponent from './Components/StudentTableComponent';
 import InputField from './Components/AddStudentInput'
-import {get_student,post_student} from './Components/API';
+import {post_student} from './Components/API';
 
 
 
 class AddStudent extends React.Component {
 
-  componentDidMount()
-  {
-    const schoolId = this.props.SchoolId;
-    const classId = this.props.ClassId;
-    get_student(schoolId,classId)
-      .then(res => {
-        const students = res.data;
-        this.setState({StudentsPresent:students})
-        
-      })
-    
-  }
+ 
 
   constructor(props)
   {
@@ -60,19 +48,15 @@ class AddStudent extends React.Component {
     //     NewStudent:this.initialStudentDetail
     // })
 
-    const schoolId = this.props.SchoolId;
-    const classId = this.props.ClassId;
+    const schoolId = this.props.match.params.SchoolId;
+    const classId = this.props.match.params.ClassId;
 
     post_student(schoolId,classId,this.state.NewStudent).then(res => {
       this.setState({
         NewStudent:this.initialStudentDetail
       })
-      get_student(schoolId,classId)
-      .then(res => {
-        const classes = res.data;
-        this.setState({StudentsPresent:classes})
-        console.log("Classes present are: ",this.state.StudentsPresent) 
-      })
+      this.props.history.push("/ViewClass/"+schoolId+"/"+classId); 
+      
     })
 
     
@@ -94,16 +78,10 @@ class AddStudent extends React.Component {
       
       
       <div className="row h-100 justify-content-center m-3 align-items-center" style={{fontSize:12}}>
-  <p style={{fontSize:20}}> Students present are:</p>
-          <div className="col-sm-12"> 
-          <div style={{background:'white'}}>
-                    <StudentTableComponent data={this.state.StudentsPresent} headers={["Student Id","Name","Date Of Birth","Address","Email","Nationality","Enrollment Date","Zipcode","City","State","Country","SchoolId","BatchId","Mobile Number","Gender"]}/>
-          </div>
-          </div>
-          <br />
-          <br />
+  
           
-          <div className="col-sm-6">
+          
+          <div className="col-sm-12">
           <p style={{fontSize:20}}> Add a student in classroom</p>
           {Object.keys(this.initialStudentDetail)
           .filter((key)=>{

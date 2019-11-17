@@ -12,7 +12,7 @@ class StudentTableComponent extends Component{
                 <thead>
                 <tr>
                     {headers.map((header,index)=>{
-                        return(<td key={index}>{header}</td>)
+                        return(<td key={index}><strong>{header}</strong></td>)
                     })}
                 </tr>
                 </thead>

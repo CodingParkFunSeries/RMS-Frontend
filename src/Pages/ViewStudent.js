@@ -73,7 +73,7 @@ myfunexam(value)
   {
     //console.log(this.state)
     return (
-        <div className="row h-100 justify-content-center m-3 align-items-center" style={{fontSize:12}}>
+        <div className="row h-100 justify-content-center m-3 align-items-center" style={{fontSize:12 ,color:"black"}}>
           
           
           <p style={{fontSize:20}}> Students details are:</p>
